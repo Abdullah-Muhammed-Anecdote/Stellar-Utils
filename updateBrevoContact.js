@@ -17,7 +17,7 @@ module.exports.updateBrevoContact = async function updateBrevoContact(user, prop
             CITY: user.city,
             COUNTRY: user.country,
             CREATED_TIME: Date(user.created_time.toDate()),
-            LAST_SIGN_IN: user.lastSignIn,
+            LAST_SIGN_IN: Date(user.lastSignIn),
         };
         if (propertiesCount) {
             attributes['NUMBER_OF_UNITS'] = propertiesCount;
