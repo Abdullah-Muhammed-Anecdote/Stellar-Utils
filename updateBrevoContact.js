@@ -1,5 +1,5 @@
 const axios = require('axios');
-async function updateBrevoContact(user, propertiesCount, apiKey) {
+export async function updateBrevoContact(user, propertiesCount, apiKey) {
 
     try {
 
