@@ -1,5 +1,6 @@
-const axios = require('axios');
-export async function updateBrevoContact(user, propertiesCount, apiKey) {
+
+import  axios  from "axios";
+export  async function updateBrevoContact(user, propertiesCount, apiKey) {
 
     try {
 
