@@ -1,3 +1,3 @@
-const updateBrevoContact = require('./updateBrevoContact');
+const {updateBrevoContact} = require('./updateBrevoContact');
 
-export { updateBrevoContact };
+module.exports = { updateBrevoContact };

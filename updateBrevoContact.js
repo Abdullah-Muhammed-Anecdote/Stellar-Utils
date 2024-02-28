@@ -1,5 +1,6 @@
-const axios = require('axios');
-export async function updateBrevoContact(user, propertiesCount, apiKey) {
+
+const  axios  = require ("axios");
+module.exports.updateBrevoContact = async function updateBrevoContact(user, propertiesCount, apiKey) {
 
     try {
 
@@ -15,7 +16,7 @@ export async function updateBrevoContact(user, propertiesCount, apiKey) {
             STATE: user.state,
             CITY: user.city,
             COUNTRY: user.country,
-            CREATED_TIME: user.created_time.toDate(),
+            CREATED_TIME: Date(user.created_time.toDate()),
         };
         if (propertiesCount) {
             attributes['NUMBER_OF_UNITS'] = propertiesCount;
