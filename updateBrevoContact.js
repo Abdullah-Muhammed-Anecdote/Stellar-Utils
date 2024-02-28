@@ -1,6 +1,6 @@
 
 const  axios  = require ("axios");
-module.exports.updateBrevoContact = async function updateBrevoContact(user, propertiesCount, apiKey) {
+module.exports.updateBrevoContact = async function updateBrevoContact(user, lastSignIn, propertiesCount, apiKey) {
 
     try {
 
@@ -20,6 +20,9 @@ module.exports.updateBrevoContact = async function updateBrevoContact(user, prop
         };
         if (propertiesCount) {
             attributes['NUMBER_OF_UNITS'] = propertiesCount;
+        }
+        if (lastSignIn) {
+            attributes['LAST_SIGN_IN'] = lastSignIn;
         }
         const data = {
             attributes: attributes,
