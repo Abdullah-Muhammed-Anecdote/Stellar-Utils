@@ -23,8 +23,7 @@
 
     try {
         const response = await axios(config);
-
-        return response.access_token;
+        return response.data.access_token;
     } catch (error) {
         console.error('Failed to refresh token:', error.response ? error.response.data : error.message);
     }
