@@ -52,3 +52,24 @@
      }
 
  }
+
+ module.exports.getSmoobuBookingsByApartmentId = async  function getBookingsByApartmentId({smoobuAccessToken,apartmentId}) {
+
+     const config = {
+         method: 'get',
+         maxBodyLength: Infinity,
+         url: `https://login.smoobu.com/api/reservations?apartmentId=${apartmentId}`,
+         headers: {
+             'Cache-Control': 'no-cache',
+             'Authorization': `Bearer ${smoobuAccessToken}`
+         }
+     };
+
+     const response = await axios(config);
+     if (response.status == 401) {
+         throw response.data.status;
+     } else {
+         return response.data.bookings;
+     }
+
+ }

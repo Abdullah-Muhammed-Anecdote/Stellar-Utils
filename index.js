@@ -1,4 +1,4 @@
 const {updateBrevoContact} = require('./updateBrevoContact');
-const {getSmoobuNewAccessToken,getSmoobuApartments} = require('./smoobu_utils');
+const {getSmoobuNewAccessToken,getSmoobuApartments, getSmoobuBookingsByApartmentId} = require('./smoobu_utils');
 
-module.exports = { updateBrevoContact, getSmoobuNewAccessToken,getSmoobuApartments };
+module.exports = { updateBrevoContact, getSmoobuNewAccessToken,getSmoobuApartments, getSmoobuBookingsByApartmentId };
