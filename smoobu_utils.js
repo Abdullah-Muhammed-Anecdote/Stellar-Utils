@@ -28,3 +28,27 @@
         console.error('Failed to refresh token:', error.response ? error.response.data : error.message);
     }
 }
+
+
+
+
+
+ module.exports.getSmoobuApartments = async  function getApartments(smoobuAccessToken) {
+
+     const config = {
+         method: 'get',
+         url: 'https://login.smoobu.com/api/apartments',
+         headers: {
+             'Authorization': `Bearer ${smoobuAccessToken}`,
+             'Cache-Control': 'no-cache'
+         }
+     };
+
+     const response = await axios(config);
+     if (response.status == 401) {
+         throw response.data.status;
+     } else {
+         return response.data.apartments;
+     }
+
+ }
