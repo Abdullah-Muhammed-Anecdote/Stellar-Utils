@@ -1,13 +1,13 @@
- const qs = require('qs'); // Required for URL encoding form data
+ const qs = require('qs');
  const  axios  = require ("axios");
 
 
- module.exports.getSmoobuNewAccessToken = async function  ({user, clientId, client_secret})  {
+ module.exports.getSmoobuNewAccessToken = async function  ({ clientId,refreshToken, client_secret})  {
 
     // URL encode the request body
     const data = qs.stringify({
         grant_type: 'refresh_token',
-        refresh_token:  user.smoobuRefreshToken,
+        refresh_token:  refreshToken,
         client_id: clientId,
         client_secret: client_secret,
     });
