@@ -1,6 +1,5 @@
 const axios = require('axios');
-const {differenceInDays} = require('date-fns'); // you can use any date library or write your own function
-
+const {differenceInDays} = require('date-fns');
 
 async function checkAndSendFormLinks({userBookingsSettings, bookingsSnapshot}) {
     const now = new Date();
@@ -17,7 +16,12 @@ async function checkAndSendFormLinks({userBookingsSettings, bookingsSnapshot}) {
             const daysDifference = differenceInDays(arrivalDate, now);
 
             if (daysDifference === daysBeforeSendingFormLink) {
-                sendFormPromises.push(sendEmail({docId: bookingDoc.id, receiver_email: booking.email}));
+
+                sendFormPromises.push(
+                    booking.owner.get().then((userDoc) => {
+                        sendEmail({booking: booking, user: userDoc.data()})
+                    })
+                );
             }
         }
     });
@@ -51,22 +55,26 @@ async function getFormUrl(docId) {
     return fetchingUrlResponse.data.url;
 }
 
-function sendEmail({docId, receiver_email}) {
+function sendEmail({booking, user}) {
 
-  return  getFormUrl(docId).then((url) => {
-
+    return getFormUrl(booking.uid).then((verificationLink) => {
 
         let data = JSON.stringify({
-            "email": receiver_email,
-            "id": `bookings-${docId}`,
-            "subject": "booking verification",
-            "content": `Please verify your booking by clicking on the link below.\n${url}`
+            id: `bookings-${booking.uid}`,
+            email: booking.email,
+            subject: 'Important: Complete Your Booking Verification',
+            contact_information: user.email,
+            verification_link: verificationLink,
+            user_name: booking.guest ?? 'client',
+            company_name: user.company,
+
+
         });
 
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: 'https://us-central1-accrental-65871.cloudfunctions.net/sendBookingVerificationMailBySendGrid',
+            url: 'https://us-central1-accrental-65871.cloudfunctions.net/sendBookingVerificationMailBySendGridTemplate',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -74,11 +82,11 @@ function sendEmail({docId, receiver_email}) {
         };
 
         return axios.request(config);
+
     });
 
 
 }
-
 
 
 module.exports = {
