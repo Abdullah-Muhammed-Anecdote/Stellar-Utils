@@ -14,21 +14,14 @@ module.exports.importProperties = async function ({apiKey}) {
     };
 
 
-    try {
-        const response = await axios
-            .request(options);
-        if (response.status === 200) {
-            return response.data.items;
-        } else {
-            throw response.data.message;
-        }
-    } catch (error) {
-        console.error('Failed to refresh token:', error.response ? error.response.data : error.message);
-    }
+    const response = await axios
+        .request(options);
+    return response.data;
+
 }
 
 
-module.exports.getBookings = async function ({apiKey }) {
+module.exports.getBookings = async function ({apiKey}) {
 
 
     const options = {
@@ -42,10 +35,7 @@ module.exports.getBookings = async function ({apiKey }) {
 
 
     const response = await axios.request(options);
-    if (response.status === 200) {
-        return response.data.items;
-    } else {
-        throw response.data.message;
-    }
+    return response.data;
+
 
 }
