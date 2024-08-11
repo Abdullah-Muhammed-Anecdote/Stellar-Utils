@@ -1,7 +1,7 @@
 
  const  axios  = require ("axios");
 
-
+const replyToEmail = 'message@incoming.stellar-trust.com';
  module.exports.sendMailBySendGrid = async function  ({ email,subject, content,id,token})  {
 
 
@@ -23,11 +23,11 @@
                 }
             ],
             "from": {
-                "email": "noreply@stellar-trust.com",
+                "email": replyToEmail,
                 "name": "Stellar"
             },
             "reply_to": {
-                "email": "noreply@stellar-trust.com",
+                "email": replyToEmail,
                 "name": "Stellar"
             },
             "headers": {
@@ -71,12 +71,12 @@
                 }
             ],
             "from": {
-                "email": "noreply@stellar-trust.com",
+                "email": replyToEmail,
                 "name": "Stellar"
             },
             "template_id": template_id,
             "reply_to": {
-                "email": "noreply@stellar-trust.com",
+                "email": replyToEmail,
                 "name": "Stellar"
             },
             "headers": {
