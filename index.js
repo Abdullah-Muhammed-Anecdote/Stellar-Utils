@@ -3,5 +3,6 @@ const {getSmoobuNewAccessToken,getSmoobuApartments, getSmoobuBookingsByApartment
 const {sendMailBySendGrid,sendDynamicTemplateMailBySendGrid} = require('./sendgrid_utils');
 const {sendEmail,getFormUrl,checkAndSendFormLinks} = require('./app_utils');
 const {importProperties,getBookings} = require('./lodgify_utils');
+const {createNotification} = require('./notification_utils');
 
-module.exports = {importProperties,getBookings, updateBrevoContact, getSmoobuNewAccessToken,getSmoobuApartments, getSmoobuBookingsByApartmentId,sendMailBySendGrid, sendEmail,sendDynamicTemplateMailBySendGrid,getFormUrl,checkAndSendFormLinks };
+module.exports = {createNotification,importProperties,getBookings, updateBrevoContact, getSmoobuNewAccessToken,getSmoobuApartments, getSmoobuBookingsByApartmentId,sendMailBySendGrid, sendEmail,sendDynamicTemplateMailBySendGrid,getFormUrl,checkAndSendFormLinks };
