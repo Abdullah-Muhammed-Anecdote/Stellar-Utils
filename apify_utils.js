@@ -16,7 +16,8 @@ module.exports.runApifyTask = async function ({taskId, apifyToken}) {
 }
 
 module.exports.assignWebhook = async function ({
-                                                   listing,
+    requestUrl,
+                                                   apifyTaskID,
                                                    ownerId,
                                                    apifyToken,
                                                    reviewsTaskId,
@@ -30,17 +31,8 @@ module.exports.assignWebhook = async function ({
         throw new Error('Apify Token is required');
     }
     try {
-        let createObject = {
-            create_date: admin.firestore.Timestamp.now(),
-            owner: db.doc(`users/${ownerId}`),
-            importing_in_progress: true,
 
-        }
-        if (listing) {
-            createObject = {...createObject, ...listing}
-        }
-        const firestorePromise = db.collection('properties').add(createObject);
-        const webhookPromise = axios.post(`https://api.apify.com/v2/webhooks`,
+       await  axios.post(`https://api.apify.com/v2/webhooks`,
             {
                 "isAdHoc": false,
                 "eventTypes": [
@@ -49,11 +41,11 @@ module.exports.assignWebhook = async function ({
                     "ACTOR.RUN.TIMED_OUT"
                 ],
                 "condition": {
-                    "actorTaskId": listing.apifyTaskID
+                    "actorTaskId": apifyTaskID
                 },
                 "ignoreSslErrors": false,
                 "doNotRetry": false,
-                "requestUrl": "https://us-central1-accrental-65871.cloudfunctions.net/getAirbnbAccommodatioData",
+                "requestUrl": `https://us-central1-accrental-65871.cloudfunctions.net/${requestUrl}`,
                 "payloadTemplate": `{\n\"userId\": \"{{userId}}\",\n\"createdAt\": \"{{createdAt}}\",\n\"eventType\": \"{{eventType}}\",\n\"eventData\": \"{{eventData}}\",\n\"owner\": \"${ownerId}\",\n\"reviewsTaskId\": \"${reviewsTaskId}\",\n\"languageCode\": \"${languageCode}\",\n\"propertyId\": \"${propertyId}\"\n}`,
                 "shouldInterpolateStrings": true
             }, {
@@ -62,7 +54,6 @@ module.exports.assignWebhook = async function ({
                     "Authorization": `Bearer ${apifyToken}`,
                 }
             });
-        await Promise.all([firestorePromise, webhookPromise]);
     } catch (error) {
         console.log('Error calling the external API:', error);
     }
