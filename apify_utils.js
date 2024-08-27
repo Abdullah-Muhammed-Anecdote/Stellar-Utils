@@ -117,7 +117,7 @@ module.exports.createBookingTask = async function ({url, apifyToken}) {
                 "options": {
                     "build": "latest",
                     "timeoutSecs": 300,
-                    "memoryMbytes": 2024
+                    "memoryMbytes": 2048
                 },
                 "input": {
                     "maxReviewsPerHotel": 10,
@@ -155,7 +155,7 @@ module.exports.createBookingScraperTask = async function ({url, apifyToken}) {
                 "options": {
                     "build": "latest",
                     "timeoutSecs": 300,
-                    "memoryMbytes": 2024
+                    "memoryMbytes": 2048
                 },
                 "input": {
                     "currency": "USD",
@@ -198,7 +198,7 @@ module.exports.createVrboMainLinkScraperTask = async function ({url, apifyToken}
                 "options": {
                     "build": "latest",
                     "timeoutSecs": 300,
-                    "memoryMbytes": 2024
+                    "memoryMbytes": 1024
                 },
                 "input": {
                     "url": url
