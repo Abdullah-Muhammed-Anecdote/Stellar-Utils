@@ -24,9 +24,7 @@ module.exports.assignWebhook = async function ({
                                                    languageCode,
                                                    propertyId
                                                }) {
-    if (!ownerId) {
-        throw new Error('Owner ID is required');
-    }
+
     if (!apifyToken) {
         throw new Error('Apify Token is required');
     }
