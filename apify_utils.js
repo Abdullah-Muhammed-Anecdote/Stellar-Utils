@@ -1,5 +1,7 @@
 const axios = require("axios");
-
+function getRandomInt() {
+    return Math.floor(Math.random() * 1000000000);
+}
 module.exports.runApifyTask = async function ({taskId, apifyToken}) {
 
     try {
@@ -68,7 +70,7 @@ module.exports.createAirbnbTask = async function ({url, apifyToken}) {
         const response = await axios.post(`https://api.apify.com/v2/actor-tasks`,
             {
                 "actId": "GsNzxEKzE2vQ5d9HN",
-                "name": `airbnb-listing-url-${Math.floor(Date.now() / 1000)}-${roomId}`,
+                "name": `${getRandomInt()}-airbnb-listing-url-${Math.floor(Date.now() / 1000)}-${roomId}`,
                 "options": {
                     "build": "0.0.60",
                     "timeoutSecs": 300,
@@ -113,7 +115,7 @@ module.exports.createBookingTask = async function ({url, apifyToken}) {
         const response = await axios.post(`https://api.apify.com/v2/actor-tasks`,
             {
                 "actId": "PbMHke3jW25J6hSOA",
-                "name": `booking-listing-url-${Math.floor(Date.now() / 1000)}`,
+                "name": `${getRandomInt()}-booking-listing-url-${Math.floor(Date.now() / 1000)}`,
                 "options": {
                     "build": "latest",
                     "timeoutSecs": 300,
@@ -151,7 +153,7 @@ module.exports.createBookingScraperTask = async function ({url, apifyToken}) {
         const response =  await axios.post(`https://api.apify.com/v2/actor-tasks`,
             {
                 "actId": "oeiQgfg5fsmIJB7Cn",
-                "name": `booking-listing-url-${Math.floor(Date.now() / 1000)}`,
+                "name": `${getRandomInt()}-booking-listing-url-${Math.floor(Date.now() / 1000)}`,
                 "options": {
                     "build": "latest",
                     "timeoutSecs": 300,
@@ -194,7 +196,7 @@ module.exports.createVrboMainLinkScraperTask = async function ({url, apifyToken}
         const response = await axios.post(`https://api.apify.com/v2/actor-tasks`,
             {
                 "actId": "WTC73sz39D0txDRdF",
-                "name": `vrbo-main-url-${Math.floor(Date.now() / 1000)}`,
+                "name": `${getRandomInt()}-vrbo-main-url-${Math.floor(Date.now() / 1000)}`,
                 "options": {
                     "build": "latest",
                     "timeoutSecs": 300,
@@ -224,7 +226,7 @@ module.exports.createVrboTask = async function ({url, apifyToken}) {
     const body = {
 
         "actId": "kRRC9n6Rv5lEcE3b3",
-        "name": `vrbo-listing-url-${Math.floor(Date.now() / 1000)}`,
+        "name": `${getRandomInt()}-vrbo-listing-url-${Math.floor(Date.now() / 1000)}`,
         "options": {
             "build": "latest",
             "timeoutSecs": 300,
@@ -368,7 +370,7 @@ module.exports.createExpediaTask = async function ({url, apifyToken}) {
     const body = {
 
         "actId": "4zyibEJ79jE7VXIpA",
-        "name": `expedia-listing-url-${Math.floor(Date.now() / 1000)}`,
+        "name": `${getRandomInt()}-expedia-listing-url-${Math.floor(Date.now() / 1000)}`,
         "options": {
             "build": "latest",
             "timeoutSecs": 300,
@@ -422,7 +424,7 @@ module.exports.createExpediaScraperTask = async function ({url, apifyToken}) {
     const body = {
 
         "actId": "pK2iIKVVxERtpwXMy",
-        "name": `expedia-scraper-listing-url-${Math.floor(Date.now() / 1000)}`,
+        "name": `${getRandomInt()}-expedia-scraper-listing-url-${Math.floor(Date.now() / 1000)}`,
         "options": {
             "build": "latest",
             "timeoutSecs": 300,
@@ -553,7 +555,7 @@ module.exports.createTripadvisorTask = async function ({url, apifyToken}) {
     const body = {
 
         "actId": "Hvp4YfFGyLM635Q2F",
-        "name": `tripadvisor-listing-url-${Math.floor(Date.now() / 1000)}`,
+        "name": `${getRandomInt()}-tripadvisor-listing-url-${Math.floor(Date.now() / 1000)}`,
         "options": {
             "build": "latest",
             "timeoutSecs": 300,
@@ -601,7 +603,7 @@ module.exports.createTripadvisorScraperTask = async function ({url, apifyToken})
     const body = {
 
         "actId": "dbEyMBriog95Fv8CW",
-        "name": `tripadvisor-scraper-listing-url-${Math.floor(Date.now() / 1000)}`,
+        "name": `${getRandomInt()}-tripadvisor-scraper-listing-url-${Math.floor(Date.now() / 1000)}`,
         "options": {
             "build": "latest",
             "timeoutSecs": 300,
