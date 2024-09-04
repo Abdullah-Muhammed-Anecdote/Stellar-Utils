@@ -18,7 +18,7 @@ module.exports.runApifyTask = async function ({taskId, apifyToken}) {
 }
 
 module.exports.assignWebhook = async function ({
-    requestUrl,
+                                                   taskType,
                                                    apifyTaskID,
                                                    ownerId,
                                                    apifyToken,
@@ -45,8 +45,8 @@ module.exports.assignWebhook = async function ({
                 },
                 "ignoreSslErrors": false,
                 "doNotRetry": false,
-                "requestUrl": `https://us-central1-accrental-65871.cloudfunctions.net/${requestUrl}`,
-                "payloadTemplate": `{\n\"userId\": \"{{userId}}\",\n\"createdAt\": \"{{createdAt}}\",\n\"eventType\": \"{{eventType}}\",\n\"eventData\": \"{{eventData}}\",\n\"owner\": \"${ownerId}\",\n\"reviewsTaskId\": \"${reviewsTaskId}\",\n\"languageCode\": \"${languageCode}\",\n\"propertyId\": \"${propertyId}\"\n}`,
+                "requestUrl": `https://us-central1-accrental-65871.cloudfunctions.net/apifyWebhookHandler`,
+                "payloadTemplate": `{\n\"userId\": \"{{userId}}\",\n\"createdAt\": \"{{createdAt}}\",\n\"eventType\": \"{{eventType}}\",\n\"eventData\": \"{{eventData}}\",\n\"owner\": \"${ownerId}\",\n\"reviewsTaskId\": \"${reviewsTaskId}\",\n\"languageCode\": \"${languageCode}\",\n\"taskType\": \"${taskType}\",\n\"propertyId\": \"${propertyId}\"\n}`,
                 "shouldInterpolateStrings": true
             }, {
                 headers: {
