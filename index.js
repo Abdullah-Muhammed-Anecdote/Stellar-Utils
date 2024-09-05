@@ -15,7 +15,8 @@ const {
     createExpediaTask,
     createExpediaScraperTask,
     createTripadvisorTask,
-    createTripadvisorScraperTask
+    createTripadvisorScraperTask,
+    createFacebookReviewsTask
 } = require('./apify_utils');
 
 module.exports = {
@@ -41,5 +42,6 @@ module.exports = {
     createExpediaTask,
     createExpediaScraperTask,
     createTripadvisorTask,
-    createTripadvisorScraperTask
+    createTripadvisorScraperTask,
+    createFacebookReviewsTask,
 };

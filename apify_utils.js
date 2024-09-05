@@ -1,7 +1,9 @@
 const axios = require("axios");
+
 function getRandomInt() {
     return Math.floor(Math.random() * 1000000000);
 }
+
 module.exports.runApifyTask = async function ({taskId, apifyToken}) {
 
     try {
@@ -31,7 +33,7 @@ module.exports.assignWebhook = async function ({
     }
     try {
 
-       await  axios.post(`https://api.apify.com/v2/webhooks`,
+        await axios.post(`https://api.apify.com/v2/webhooks`,
             {
                 "isAdHoc": false,
                 "eventTypes": [
@@ -149,7 +151,7 @@ module.exports.createBookingScraperTask = async function ({url, apifyToken}) {
 
 
     try {
-        const response =  await axios.post(`https://api.apify.com/v2/actor-tasks`,
+        const response = await axios.post(`https://api.apify.com/v2/actor-tasks`,
             {
                 "actId": "oeiQgfg5fsmIJB7Cn",
                 "name": `${getRandomInt()}-booking-listing-url-${Math.floor(Date.now() / 1000)}`,
@@ -642,4 +644,45 @@ module.exports.createTripadvisorScraperTask = async function ({url, apifyToken})
         console.error('Error running actor task:', error);
         throw error;
     }
+}
+
+module.exports.createFacebookReviewsTask = async function ({url, apifyToken}) {
+    try {
+        let data = JSON.stringify({
+            "actId": "dX3d80hsNMilEwjXG",
+            "name": `${getRandomInt()}-facebook-reviews-${Math.floor(Date.now() / 1000)}`,
+            "options": {
+                "build": "latest",
+                "timeoutSecs": 300,
+                "memoryMbytes": 1024
+            },
+            "input": {
+                "resultsLimit": 10,
+                "startUrls": [
+                    {
+                        "url": url,
+                    }
+                ]
+            }
+        });
+
+        let config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: 'https://api.apify.com/v2/actor-tasks',
+            headers: {
+                'Authorization': `Bearer ${apifyToken}`,
+                'Content-Type': 'application/json'
+            },
+            data: data
+        };
+
+        const response = await axios.request(config);
+        return response.data;
+
+    } catch (error) {
+        console.log(`Error createFacebookReviewsTask: ${JSON.stringify(error)}`);
+        throw error;
+    }
+
 }
