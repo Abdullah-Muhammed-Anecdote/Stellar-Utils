@@ -24,8 +24,8 @@ module.exports.assignWebhook = async function ({
                                                    apifyTaskID,
                                                    ownerId,
                                                    apifyToken,
-                                                   reviewsTaskId,
-                                                   languageCode
+                                                   reviewsTaskId = "",
+                                                   languageCode =""
                                                }) {
 
     if (!apifyToken) {
