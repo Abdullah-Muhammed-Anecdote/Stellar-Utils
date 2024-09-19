@@ -1,9 +1,9 @@
 const axios = require("axios");
 
-const replyToEmail = 'message@incoming.stellar-trust.com';
+const defaultFromEmail = 'message@incoming.stellar-trust.com';
 
-function getReplyToEmailID({id}) {
-    const splitReplyToEmail = replyToEmail.split('@');
+function getReplyToEmailID({from_email, id}) {
+    const splitReplyToEmail = (from_email ?? defaultFromEmail).split('@');
     return `${splitReplyToEmail[0]}+${id}@${splitReplyToEmail[1]}`;
 
 }
@@ -29,7 +29,7 @@ module.exports.sendMailBySendGrid = async function ({email, subject, content, id
             }
         ],
         "from": {
-            "email": replyToEmail,
+            "email": defaultFromEmail,
             "name": "Stellar"
         },
         "reply_to": {
@@ -61,6 +61,8 @@ module.exports.sendMailBySendGrid = async function ({email, subject, content, id
 
 module.exports.sendDynamicTemplateMailBySendGrid = async function ({
                                                                        email,
+                                                                       from_email,
+                                                                       from_name,
                                                                        dynamic_template_data,
                                                                        template_id,
                                                                        id,
@@ -80,13 +82,13 @@ module.exports.sendDynamicTemplateMailBySendGrid = async function ({
             }
         ],
         "from": {
-            "email": replyToEmail,
-            "name": "Stellar"
+            "email": from_email ?? defaultFromEmail,
+            "name": from_name ?? "Stellar"
         },
         "template_id": template_id,
         "reply_to": {
-            "email": getReplyToEmailID({id: id}),
-            "name": "Stellar"
+            "email": getReplyToEmailID({from_email: from_email, id: id}),
+            "name": from_name ?? "Stellar"
         },
     });
 
