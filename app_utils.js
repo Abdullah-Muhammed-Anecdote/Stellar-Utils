@@ -56,7 +56,7 @@ async function getFormUrl(docId) {
 }
 
 function sendEmail({booking, user}) {
-    const userName = user.first_name??user.last_name;
+    const userName = `${user.first_name} ${user.last_name}`;
 const companyName = user.company??userName;
 
     return getFormUrl(booking.uid).then((verificationLink) => {
