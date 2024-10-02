@@ -8,6 +8,7 @@ const {
     runApifyTask,
     assignWebhook,
     createAirbnbTask,
+    createAirbnbProfileListingsUrlTask,
     createBookingTask,
     createBookingScraperTask,
     createVrboMainLinkScraperTask,
@@ -16,7 +17,9 @@ const {
     createExpediaScraperTask,
     createTripadvisorTask,
     createTripadvisorScraperTask,
-    createFacebookReviewsTask
+    createFacebookReviewsTask,
+    createFacebookRatingsTask,
+    createGoogleReviewsTask,
 } = require('./apify_utils');
 
 module.exports = {
@@ -35,6 +38,7 @@ module.exports = {
     runApifyTask,
     assignWebhook,
     createAirbnbTask,
+    createAirbnbProfileListingsUrlTask,
     createBookingTask,
     createBookingScraperTask,
     createVrboMainLinkScraperTask,
@@ -44,4 +48,6 @@ module.exports = {
     createTripadvisorTask,
     createTripadvisorScraperTask,
     createFacebookReviewsTask,
+    createFacebookRatingsTask,
+    createGoogleReviewsTask,
 };

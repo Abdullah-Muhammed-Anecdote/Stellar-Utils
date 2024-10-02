@@ -25,7 +25,7 @@ module.exports.assignWebhook = async function ({
                                                    ownerId,
                                                    apifyToken,
                                                    reviewsTaskId = "",
-                                                   languageCode =""
+                                                   languageCode = ""
                                                }) {
 
     if (!apifyToken) {
@@ -96,6 +96,42 @@ module.exports.createAirbnbTask = async function ({url, apifyToken}) {
                         }
                     ],
                     "timeoutMs": 300000
+                }
+            }, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${apifyToken}`,
+                }
+            });
+
+        return response.data;
+    } catch (error) {
+        console.log('Error calling the external API:', error);
+    }
+}
+
+module.exports.createAirbnbProfileListingsUrlTask = async function ({url, apifyToken}) {
+
+    const uri = new URL(url);
+    const parts = uri.pathname.split('/');
+    const roomId = parts[2];
+
+    try {
+        const response = await axios.post(`https://api.apify.com/v2/actor-tasks`,
+            {
+                "actId": "WtLPtygUhftstMObW",
+                "name": `${getRandomInt()}-airbnb-profile-listing-url-${Math.floor(Date.now() / 1000)}-${roomId}`,
+                "options": {
+                    "build": "latest",
+                    "timeoutSecs": 300,
+                    "memoryMbytes": 1024
+                },
+                "input": {
+                    "startUrls": [
+                        {
+                            "url": url
+                        }
+                    ]
                 }
             }, {
                 headers: {
@@ -645,7 +681,6 @@ module.exports.createTripadvisorScraperTask = async function ({url, apifyToken})
         throw error;
     }
 }
-
 module.exports.createFacebookReviewsTask = async function ({url, apifyToken}) {
     try {
         let data = JSON.stringify({
@@ -682,6 +717,88 @@ module.exports.createFacebookReviewsTask = async function ({url, apifyToken}) {
 
     } catch (error) {
         console.log(`Error createFacebookReviewsTask: ${JSON.stringify(error)}`);
+        throw error;
+    }
+
+}
+module.exports.createFacebookRatingsTask = async function ({url, apifyToken}) {
+    try {
+        let data = JSON.stringify({
+            "actId": "4Hv5RhChiaDk6iwad",
+            "name": `${getRandomInt()}-facebook-ratings-${Math.floor(Date.now() / 1000)}`,
+            "options": {
+                "build": "latest",
+                "timeoutSecs": 300,
+                "memoryMbytes": 1024
+            },
+            "input": {
+                "startUrls": [
+                    {
+                        "url": url
+                    }
+                ]
+            }
+        });
+
+        let config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: 'https://api.apify.com/v2/actor-tasks',
+            headers: {
+                'Authorization': `Bearer ${apifyToken}`,
+                'Content-Type': 'application/json'
+            },
+            data: data
+        };
+
+        const response = await axios.request(config);
+        return response.data;
+
+    } catch (error) {
+        console.log(`Error createFacebookRatingsTask: ${JSON.stringify(error)}`);
+        throw error;
+    }
+
+}
+module.exports.createGoogleReviewsTask = async function ({url, apifyToken}) {
+    try {
+        let data = JSON.stringify({
+            "actId": "Xb8osYTtOjlsgI6k9",
+            "name": `${getRandomInt()}-google-reviews-${Math.floor(Date.now() / 1000)}`,
+            "options": {
+                "build": "latest",
+                "timeoutSecs": 300,
+                "memoryMbytes": 1024
+            },
+            "input": {
+                "language": "en",
+                "maxReviews": 10,
+                "personalData": true,
+                "startUrls": [
+                    {
+                        "url": url
+                    }
+                ],
+                "reviewsSort": "newest"
+            }
+        });
+
+        let config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: 'https://api.apify.com/v2/actor-tasks',
+            headers: {
+                'Authorization': `Bearer ${apifyToken}`,
+                'Content-Type': 'application/json'
+            },
+            data: data
+        };
+
+        const response = await axios.request(config);
+        return response.data;
+
+    } catch (error) {
+        console.log(`Error createGoogleReviewsTask: ${JSON.stringify(error)}`);
         throw error;
     }
 
