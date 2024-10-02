@@ -20,6 +20,7 @@ module.exports.runApifyTask = async function ({taskId, apifyToken}) {
 }
 
 module.exports.assignWebhook = async function ({
+                                                   isAutomatedTask,
                                                    taskType,
                                                    apifyTaskID,
                                                    ownerId,
@@ -46,7 +47,7 @@ module.exports.assignWebhook = async function ({
                 },
                 "ignoreSslErrors": false,
                 "doNotRetry": false,
-                "requestUrl": `https://us-central1-accrental-65871.cloudfunctions.net/apifyWebhookHandler`,
+                "requestUrl":isAutomatedTask? `https://us-central1-accrental-65871.cloudfunctions.net/automatedApifyWebhookHandler`: `https://us-central1-accrental-65871.cloudfunctions.net/apifyWebhookHandler`,
                 "payloadTemplate": `{\n\"userId\": \"{{userId}}\",\n\"createdAt\": \"{{createdAt}}\",\n\"eventType\": \"{{eventType}}\",\n\"eventData\": \"{{eventData}}\",\n\"owner\": \"${ownerId}\",\n\"reviewsTaskId\": \"${reviewsTaskId}\",\n\"languageCode\": \"${languageCode}\",\n\"taskType\": \"${taskType}\"\n}`,
                 "shouldInterpolateStrings": true
             }, {
