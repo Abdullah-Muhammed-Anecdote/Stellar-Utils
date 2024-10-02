@@ -113,15 +113,11 @@ module.exports.createAirbnbTask = async function ({url, apifyToken}) {
 
 module.exports.createAirbnbProfileListingsUrlTask = async function ({url, apifyToken}) {
 
-    const uri = new URL(url);
-    const parts = uri.pathname.split('/');
-    const roomId = parts[2];
-
     try {
         const response = await axios.post(`https://api.apify.com/v2/actor-tasks`,
             {
                 "actId": "WtLPtygUhftstMObW",
-                "name": `${getRandomInt()}-airbnb-profile-listing-url-${Math.floor(Date.now() / 1000)}-${roomId}`,
+                "name": `${getRandomInt()}-airbnb-profile-listing-url-${Math.floor(Date.now() / 1000)}`,
                 "options": {
                     "build": "latest",
                     "timeoutSecs": 300,
