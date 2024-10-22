@@ -57,7 +57,9 @@ async function getFormUrl(docId) {
 
 function sendEmail({booking, user}) {
     const userName = `${user.first_name} ${user.last_name}`;
-const companyName = user.company??userName;
+    booking.guest = booking.guest.trim() === '' || !booking.guest ? 'guest' : booking.guest;
+    let companyName = user.company ?? userName;
+    companyName = companyName.trim() === '' ? 'stellar' : companyName;
 
     return getFormUrl(booking.uid).then((verificationLink) => {
         let data = JSON.stringify({
@@ -66,11 +68,11 @@ const companyName = user.company??userName;
             subject: 'Important: Complete Your Booking Verification',
             contact_information: user.email,
             verification_link: verificationLink,
-            user_name: booking.guest ?? 'client',
-            lang: booking.guest_lang  ,
+            user_name: booking.guest,
+            lang: booking.guest_lang,
             company_name: companyName,
             from_email: `${companyName}@incoming.stellar-trust.com`,
-            from_name: userName?? companyName,
+            from_name: userName ?? companyName,
         });
 
         let config = {
