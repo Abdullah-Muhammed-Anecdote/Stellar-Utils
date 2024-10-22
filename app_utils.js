@@ -67,6 +67,7 @@ const companyName = user.company??userName;
             contact_information: user.email,
             verification_link: verificationLink,
             user_name: booking.guest ?? 'client',
+            lang: booking.guest_lang  ,
             company_name: companyName,
             from_email: `${companyName}@incoming.stellar-trust.com`,
             from_name: userName?? companyName,
