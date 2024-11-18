@@ -1,5 +1,4 @@
-
-const  axios  = require ("axios");
+const axios = require("axios");
 module.exports.updateBrevoContact = async function updateBrevoContact(user, propertiesCount, apiKey) {
 
     try {
@@ -41,6 +40,9 @@ module.exports.updateBrevoContact = async function updateBrevoContact(user, prop
                 }
             });
         } else {
+            data["listIds"] = [
+                7
+            ];
             const response = await axios.post(url, data, {
                 headers: {
                     'accept': 'application/json',
