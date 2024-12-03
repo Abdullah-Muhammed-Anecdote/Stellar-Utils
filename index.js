@@ -22,6 +22,40 @@ const {
     createGoogleReviewsTask,
 } = require('./apify_utils');
 
+const supportedCheckInCountries = [
+    'Austria',
+    'Belgium',
+    'Bulgaria',
+    'Croatia',
+    'Cyprus',
+    'Czech Republic',
+    'Denmark',
+    'Estonia',
+    'Finland',
+    'France',
+    'Germany',
+    'Greece',
+    'Hungary',
+    'Iceland',
+    'Ireland',
+    'Italy',
+    'Latvia',
+    'Liechtenstein',
+    'Lithuania',
+    'Luxembourg',
+    'Malta',
+    'Netherlands',
+    'Norway',
+    'Poland',
+    'Portugal',
+    'Romania',
+    'Slovakia',
+    'Slovenia',
+    'Spain',
+    'Sweden',
+    'Switzerland',
+    'United Kingdom',    'GB'
+]
 
 const countryInfoJson = {
     "Afghanistan": { "dial_code": "+93", "code": "AF" },
@@ -322,6 +356,8 @@ module.exports = {
     createFacebookRatingsTask,
     createGoogleReviewsTask,
     getNotificationContent,
+    supportedCheckInCountries,
     countryInfoJson,
+
 };
 
