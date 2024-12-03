@@ -22,6 +22,25 @@ const {
     createGoogleReviewsTask,
 } = require('./apify_utils');
 
+
+function getCountryName(country) {
+    if (country == null) {
+        return null;
+    } else if (country.length > 3) {
+        return country;
+    } else if (country.length > 2) {
+        const filteredCountry = Object.keys(countryInfoJson)
+            .filter((countryName) => countryInfoJson[countryName]['iso-3'] === country);
+        return filteredCountry[0];
+    } else {
+        const filteredCountry = Object.keys(countryInfoJson)
+            .filter((countryName) => countryInfoJson[countryName]['code'] === country);
+        return filteredCountry[0];
+    }
+
+}
+
+
 const supportedCheckInCountries = [
     'Austria',
     'Belgium',
