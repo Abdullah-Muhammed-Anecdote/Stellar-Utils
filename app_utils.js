@@ -123,7 +123,27 @@ function getCountryName(country) {
     }
 
 }
+function getCountryCode(country) {
+    if (country == null) {
+        return null;
+    } else if (country.length > 3) {
+        const firstChar = country.charAt(0);
+        const rest = country.slice(1);
 
+        if (!(firstChar === firstChar.toUpperCase() && rest === rest.toLowerCase())) {
+            // Adjust the casing: first letter uppercase, rest lowercase
+            country = firstChar.toUpperCase() + rest.toLowerCase();
+        }
+        return  countryInfoJson[country]['code'];
+    }   else if (country.length >2){
+        const filteredCountry = Object.keys(countryInfoJson)
+            .filter((countryName) => countryInfoJson[countryName]['iso-3'] === country.toUpperCase());
+        return filteredCountry[0]['code'];
+
+    } else {
+      return country;
+    }
+}
 
 const supportedCheckInCountries = [
     {
@@ -540,6 +560,7 @@ module.exports = {
     sendEmail,
     checkCountrySupportedForCheckIn,
     getCountryName,
+    getCountryCode,
     supportedCheckInCountries,
     countryInfoJson,
 };
