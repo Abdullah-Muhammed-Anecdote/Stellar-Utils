@@ -1,6 +1,10 @@
 const axios = require('axios');
 const {differenceInDays} = require('date-fns');
+const admin = require('firebase-admin');
 
+if (!admin.apps.length) {
+    admin.initializeApp();
+}
 async function checkAndSendFormLinks({userBookingsSettings, bookingsSnapshot}) {
     const now = new Date();
 
