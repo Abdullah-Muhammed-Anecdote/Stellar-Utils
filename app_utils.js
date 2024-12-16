@@ -145,6 +145,30 @@ function getCountryCode(country) {
     }
 }
 
+async function setIncrementId(counterName, documentRef, fieldName) {
+    const counterRef = admin.firestore().collection('counters').doc(counterName);
+
+    return admin.firestore().runTransaction(async (transaction) => {
+        const counterDoc = await transaction.get(counterRef);
+        let newId;
+
+        if (!counterDoc.exists) {
+
+            newId = 1001;
+            transaction.set(counterRef, { value: newId });
+        } else {
+            // Increment the counter value
+            newId = counterDoc.data().value + 1;
+            transaction.update(counterRef, { value: newId });
+        }
+
+        // Update the target document with the new ID
+        transaction.update(documentRef, { [fieldName]: newId });
+
+        return newId; // Optional: Return the new ID for confirmation/logging
+    });
+}
+
 const supportedCheckInCountries = [
     {
         name: 'Austria',
@@ -275,6 +299,9 @@ const supportedCheckInCountries = [
         alternativeNames: ['United Kingdom', 'Britain', 'Great Britain',]
     }
 ];
+
+
+
 
 
 const countryInfoJson = {
@@ -563,4 +590,5 @@ module.exports = {
     getCountryCode,
     supportedCheckInCountries,
     countryInfoJson,
+    setIncrementId
 };
