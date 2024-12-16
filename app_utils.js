@@ -153,7 +153,7 @@ async function setIncrementId(counterName, documentRef, fieldName) {
         let newId;
 
         if (!counterDoc.exists) {
-
+            // Initialize the counter if it doesn't exist
             newId = 1001;
             transaction.set(counterRef, { value: newId });
         } else {
@@ -162,10 +162,10 @@ async function setIncrementId(counterName, documentRef, fieldName) {
             transaction.update(counterRef, { value: newId });
         }
 
-        // Update the target document with the new ID
+        // Update the target document with the new incremented ID
         transaction.update(documentRef, { [fieldName]: newId });
 
-        return newId; // Optional: Return the new ID for confirmation/logging
+        return newId; 
     });
 }
 
