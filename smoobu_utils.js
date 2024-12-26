@@ -58,7 +58,7 @@ module.exports.getSmoobuBookingsByApartmentId = async function getBookingsByApar
     const config = {
         method: 'get',
         maxBodyLength: Infinity,
-        url: `https://login.smoobu.com/api/reservations?apartmentId=${apartmentId}`,
+        url: `https://login.smoobu.com/api/reservations?apartmentId=${apartmentId}&from=1960-01-01`,
         headers: {
             'Cache-Control': 'no-cache',
             'Authorization': `Bearer ${smoobuAccessToken}`
